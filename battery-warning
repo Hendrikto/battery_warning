@@ -15,18 +15,13 @@ battery_dir="/sys/class/power_supply/BAT$1/"
 
 status=$(cat $battery_dir'status')
 while true; do
-	case $status in
-		Discharging)
-			capacity=$(cat $battery_dir'capacity')
-			(( $capacity < $2 )) && i3-nagbar -m 'Low battery!'
-			#inotifywait -e modify $battery_dir'capacity'
-			sleep $3
-			status=$(cat $battery_dir'status')
-			;;
-		*)
-			#inotifywait -e modify $battery_dir'status'
-			sleep $3
-			status=$(cat $battery_dir'status')
-			;;
-	esac
+	if [[ $status == 'Discharging' ]]; then
+		capacity=$(cat $battery_dir'capacity')
+		(( $capacity < $2 )) && i3-nagbar -m 'Low battery!'
+		sleep $3
+		status=$(cat $battery_dir'status')
+	else
+		sleep $3
+		status=$(cat $battery_dir'status')
+	fi
 done
