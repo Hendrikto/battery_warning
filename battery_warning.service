@@ -4,3 +4,6 @@ Description=Warn if the battery capacity drops too low
 [Service]
 ExecStart=/usr/local/bin/battery_warning 0 15 300
 Restart=on-abnormal
+
+[Install]
+WantedBy=default.target
