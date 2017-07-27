@@ -24,5 +24,12 @@ int main(int argc, char **argv) {
 		print_usage(argv[0]);
 		return EXIT_FAILURE;
 	}
+	int const battery_id = strtol(argv[1], NULL, 10);
+	int const threshold = strtol(argv[2], NULL, 10);
+	int const timeout = strtol(argv[3], NULL, 10);
+	if (threshold < 1 || timeout < 0) {
+		print_usage(argv[0]);
+		return EXIT_FAILURE;
+	}
 	return EXIT_SUCCESS;
 }
