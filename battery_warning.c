@@ -28,6 +28,15 @@ char *format_path(char const *path_template, int const battery_id) {
 	return path;
 }
 
+FILE *open_file(char const *path) {
+	FILE *file = fopen(path, "r");
+	if (file == NULL) {
+		fprintf(stderr, "Failed to open: %s\n", path);
+		exit(EXIT_FAILURE);
+	}
+	return file;
+}
+
 int main(int argc, char **argv) {
 	if (argc != 4) {
 		print_usage(argv[0]);
@@ -42,11 +51,7 @@ int main(int argc, char **argv) {
 	}
 
 	char *capacity_path = format_path(BATTERY_DIR "capacity", battery_id);
-	FILE *capacity = fopen(capacity_path, "r");
-	if (capacity == NULL) {
-		fprintf(stderr, "Failed to open: %s\n", capacity_path);
-		return EXIT_FAILURE;
-	}
+	FILE *capacity = open_file(capacity_path);
 	free(capacity_path);
 
 	fclose(capacity);
