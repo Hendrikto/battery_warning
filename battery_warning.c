@@ -9,7 +9,7 @@
 
 #define BATTERY_DIR "/sys/class/power_supply/BAT%d/"
 
-void print_usage(char *name) {
+void print_usage(char const *name) {
 	printf(
 		"Usage: %1$s <battery_id> <threshold> <timeout>\n"
 		"\tbattery_id >= 0\n"
