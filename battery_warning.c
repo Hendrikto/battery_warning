@@ -40,5 +40,15 @@ int main(int argc, char **argv) {
 		print_usage(argv[0]);
 		return EXIT_FAILURE;
 	}
+
+	char *capacity_path = format_path(BATTERY_DIR "capacity", battery_id);
+	FILE *capacity = fopen(capacity_path, "r");
+	if (capacity == NULL) {
+		fprintf(stderr, "Failed to open: %s\n", capacity_path);
+		return EXIT_FAILURE;
+	}
+	free(capacity_path);
+
+	fclose(capacity);
 	return EXIT_SUCCESS;
 }
