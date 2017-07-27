@@ -54,6 +54,11 @@ int main(int argc, char **argv) {
 	FILE *capacity = open_file(capacity_path);
 	free(capacity_path);
 
+	char *status_path = format_path(BATTERY_DIR "status", battery_id);
+	FILE *status = open_file(status_path);
+	free(status_path);
+
 	fclose(capacity);
+	fclose(status);
 	return EXIT_SUCCESS;
 }
