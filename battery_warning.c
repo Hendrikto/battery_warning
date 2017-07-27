@@ -7,6 +7,8 @@
  * @author: Hendrik Werner
  */
 
+#define BATTERY_DIR "/sys/class/power_supply/BAT%d/"
+
 void print_usage(char *name) {
 	printf(
 		"Usage: %1$s <battery_id> <threshold> <timeout>\n"
