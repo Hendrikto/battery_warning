@@ -21,6 +21,13 @@ void print_usage(char *name) {
 	);
 }
 
+char *format_path(char const *path_template, int const battery_id) {
+	size_t path_size = snprintf(NULL, 0, path_template, battery_id) + 1;
+	char *path = malloc(path_size);
+	snprintf(path, path_size, path_template, battery_id);
+	return path;
+}
+
 int main(int argc, char **argv) {
 	if (argc != 4) {
 		print_usage(argv[0]);
