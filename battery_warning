@@ -8,7 +8,7 @@ usage() {
 
 battery_dir="/sys/class/power_supply/BAT$1/"
 
-(( $# < 2 )) && usage && exit 1
+(( $# != 3 )) && usage && exit 1
 [[ ! -d $battery_dir ]] && usage && exit 2
 (( $2 < 1 )) && usage && exit 3
 (( $3 < 0 )) && usage && exit 4
