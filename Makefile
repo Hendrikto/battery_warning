@@ -9,7 +9,7 @@ battery_warning: battery_warning.c
 clean:
 	rm -f battery_warning
 
-install: battery_warning
+install: battery_warning battery_warning.service
 	sudo mv $< /usr/local/bin
 	sudo ln -rs $<.service /etc/systemd/system
 
