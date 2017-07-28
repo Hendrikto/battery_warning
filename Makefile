@@ -10,7 +10,7 @@ clean:
 	rm -f battery_warning
 
 install: battery_warning
-	sudo ln -rs $< /usr/local/bin
+	sudo mv $< /usr/local/bin
 	sudo ln -rs $<.service /etc/systemd/system
 
 uninstall:
