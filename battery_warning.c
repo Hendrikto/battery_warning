@@ -52,10 +52,12 @@ int main(int argc, char **argv) {
 
 	char *capacity_path = format_path(BATTERY_DIR "capacity", battery_id);
 	FILE *capacity = open_file(capacity_path);
+	setbuf(capacity, NULL);
 	free(capacity_path);
 
 	char *status_path = format_path(BATTERY_DIR "status", battery_id);
 	FILE *status = open_file(status_path);
+	setbuf(status, NULL);
 	free(status_path);
 
 	fclose(capacity);
