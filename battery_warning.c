@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 /**
  * Issue a warning if the battery capacity drops too low.
@@ -8,6 +10,7 @@
  */
 
 #define BATTERY_DIR "/sys/class/power_supply/BAT%d/"
+#define STATUS_MAX 16
 
 void print_usage(char const *name) {
 	printf(
@@ -37,6 +40,30 @@ FILE *open_file(char const *path) {
 	return file;
 }
 
+void monitoring_loop(
+	FILE *capacity_file
+	,FILE *status_file
+	,int const threshold
+	,int const timeout
+) {
+	int capacity;
+	char status[STATUS_MAX];
+	fscanf(status_file, "%s", status);
+	rewind(status_file);
+	for (;;) {
+		if (!strcmp(status, "Discharging")) {
+			fscanf(capacity_file, "%d", &capacity);
+			rewind(capacity_file);
+			if (capacity < threshold) {
+				system("i3-nagbar -m 'Low battery!'");
+			}
+		}
+		sleep(timeout);
+		fscanf(status_file, "%s", status);
+		rewind(status_file);
+	}
+}
+
 int main(int argc, char **argv) {
 	if (argc != 4) {
 		print_usage(argv[0]);
@@ -59,6 +86,8 @@ int main(int argc, char **argv) {
 	FILE *status = open_file(status_path);
 	setbuf(status, NULL);
 	free(status_path);
+
+	monitoring_loop(capacity, status, threshold, timeout);
 
 	fclose(capacity);
 	fclose(status);
