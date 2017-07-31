@@ -7,15 +7,15 @@ battery_warning: battery_warning.c
 	$(CC) $(CFLAGS) $< -o $@
 
 %: %.template
-	sed "s/{{user}}/$(USER)/;s/{{display}}/$(DISPLAY)/" $< > $@
+	sed "s/{{display}}/$(DISPLAY)/" $< > $@
 
 clean:
 	rm -f battery_warning battery_warning.service
 
 install: battery_warning battery_warning.service
 	sudo mv $< /usr/local/bin
-	sudo ln -rs $<.service /etc/systemd/system
+	ln -rs $<.service ~/.config/systemd/user
 
 uninstall:
 	sudo rm -f /usr/local/bin/battery_warning
-	sudo rm -f /etc/systemd/system/battery_warning.service
+	rm -f ~/.config/systemd/user/battery_warning.service
