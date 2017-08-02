@@ -1,9 +1,9 @@
 CC = gcc
 CFLAGS += -Wall -Wextra -O3 -march=native
 
-all: battery_warning battery_warning.service install
+all: install
 
-battery_warning: battery_warning.c
+%: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
 %: %.template
