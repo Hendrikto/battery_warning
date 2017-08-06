@@ -1,13 +1,15 @@
 CC = gcc
 CFLAGS += -Wall -Wextra -O3 -march=native
 
+SUBSTITUTIONS += ";s/{{display}}/$(DISPLAY)/"
+
 all: install
 
 %: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
 %: %.template
-	sed "s/{{display}}/$(DISPLAY)/" $< > $@
+	sed $(SUBSTITUTIONS) $< > $@
 
 clean:
 	rm -f battery_warning battery_warning.service
