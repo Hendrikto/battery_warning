@@ -3,7 +3,7 @@ CFLAGS += -Wall -Wextra -O3 -march=native
 
 SUBSTITUTIONS += ";s/{{display}}/$(DISPLAY)/"
 
-all: install
+all: battery_warning battery_warning.service
 
 %: %.c
 	$(CC) $(CFLAGS) $< -o $@

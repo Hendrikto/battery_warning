@@ -3,7 +3,7 @@ Issue a warning if the battery capacity drops too low.
 
 ## Build
 ```sh
-make battery_warning battery_warning.service
+make
 ```
 
 Sensible defaults are chosen for the systemd service file during generation. It might be necessary to edit `battery_warning.service`.
