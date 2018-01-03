@@ -10,12 +10,12 @@ Sensible defaults are chosen for the systemd service file during generation. It 
 
 ## Install
 ```sh
-make install
+sudo make install
 ```
 
 ## Uninstall
 ```sh
-make uninstall
+sudo make uninstall
 ```
 
 ## Usage

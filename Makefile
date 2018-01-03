@@ -1,7 +1,10 @@
 CC = gcc
 CFLAGS += -Wall -Wextra -O3 -march=native
 
-SUBSTITUTIONS += ";s/{{display}}/$(DISPLAY)/"
+prefix = /usr/local
+systemd_prefix = ~/.config
+substitutions = "s/{{display}}/$(DISPLAY)/\
+	;s\#{{prefix}}\#$(prefix)\#"
 
 all: battery_warning battery_warning.service
 
@@ -9,15 +12,14 @@ all: battery_warning battery_warning.service
 	$(CC) $(CFLAGS) $< -o $@
 
 %: %.template
-	sed $(SUBSTITUTIONS) $< > $@
+	sed $(substitutions) $< > $@
 
 clean:
 	rm -f battery_warning battery_warning.service
 
 install: battery_warning battery_warning.service
-	sudo mv $< /usr/local/bin
-	ln -rs $<.service ~/.config/systemd/user
+	install -D -m 755 $< $(DESTDIR)$(prefix)/bin/$<
+	install -D -m 644 $<.service $(DESTDIR)$(systemd_prefix)/systemd/user/$<.service
 
 uninstall:
-	sudo rm -f /usr/local/bin/battery_warning
-	rm -f ~/.config/systemd/user/battery_warning.service
+	rm -f $(DESTDIR)$(prefix)/bin/battery_warning $(DESTDIR)$(systemd_prefix)/systemd/user/battery_warning.service
