@@ -3,8 +3,8 @@ CFLAGS += -Wall -Wextra -O3 -march=native
 
 prefix = /usr/local
 systemd_prefix = ~/.config
-substitutions = "s/{{display}}/$(DISPLAY)/\
-	;s\#{{prefix}}\#$(prefix)\#"
+substitutions = "s/{{display}}/$(DISPLAY)/g\
+	;s\#{{prefix}}\#$(prefix)\#g"
 
 all: battery_warning battery_warning.service
 
