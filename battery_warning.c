@@ -12,7 +12,7 @@
 #define BATTERY_DIR "/sys/class/power_supply/BAT%d/"
 #define STATUS_MAX 16
 
-void print_usage(char const *name) {
+void print_usage(char const *const name) {
 	printf(
 		"Usage: %1$s <battery_id> <threshold> <timeout>\n"
 		"\tbattery_id >= 0\n"
@@ -24,15 +24,15 @@ void print_usage(char const *name) {
 	);
 }
 
-char *format_path(char const *path_template, int const battery_id) {
-	size_t path_size = snprintf(NULL, 0, path_template, battery_id) + 1;
-	char *path = malloc(path_size);
+char *format_path(char const *const path_template, int const battery_id) {
+	size_t const path_size = snprintf(NULL, 0, path_template, battery_id) + 1;
+	char *const path = malloc(path_size);
 	snprintf(path, path_size, path_template, battery_id);
 	return path;
 }
 
-FILE *open_file(char const *path) {
-	FILE *file = fopen(path, "r");
+FILE *open_file(char const *const path) {
+	FILE *const file = fopen(path, "r");
 	if (file == NULL) {
 		fprintf(stderr, "Failed to open: %s\n", path);
 		exit(EXIT_FAILURE);
@@ -41,8 +41,8 @@ FILE *open_file(char const *path) {
 }
 
 void monitoring_loop(
-	FILE *capacity_file
-	,FILE *status_file
+	FILE *const capacity_file
+	,FILE *const status_file
 	,int const threshold
 	,int const timeout
 ) {
@@ -64,7 +64,7 @@ void monitoring_loop(
 	}
 }
 
-int main(int argc, char **argv) {
+int main(int const argc, char const *const *const argv) {
 	if (argc != 4) {
 		print_usage(argv[0]);
 		return EXIT_FAILURE;
