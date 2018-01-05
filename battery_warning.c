@@ -77,13 +77,13 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
-	char *capacity_path = format_path(BATTERY_DIR "capacity", battery_id);
-	FILE *capacity = open_file(capacity_path);
+	char *const capacity_path = format_path(BATTERY_DIR "capacity", battery_id);
+	FILE *const capacity = open_file(capacity_path);
 	setbuf(capacity, NULL);
 	free(capacity_path);
 
-	char *status_path = format_path(BATTERY_DIR "status", battery_id);
-	FILE *status = open_file(status_path);
+	char *const status_path = format_path(BATTERY_DIR "status", battery_id);
+	FILE *const status = open_file(status_path);
 	setbuf(status, NULL);
 	free(status_path);
 
