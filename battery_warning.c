@@ -79,13 +79,13 @@ int main(int argc, char **argv) {
 
 	char *const capacity_path = format_path(BATTERY_DIR "capacity", battery_id);
 	FILE *const capacity = open_file(capacity_path);
-	setbuf(capacity, NULL);
 	free(capacity_path);
+	setbuf(capacity, NULL);
 
 	char *const status_path = format_path(BATTERY_DIR "status", battery_id);
 	FILE *const status = open_file(status_path);
-	setbuf(status, NULL);
 	free(status_path);
+	setbuf(status, NULL);
 
 	monitoring_loop(capacity, status, threshold, timeout);
 
