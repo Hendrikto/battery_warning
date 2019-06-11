@@ -6,5 +6,8 @@ Environment=DISPLAY={{display}}
 ExecStart={{prefix}}/bin/battery_warning 0 15 300
 Restart=on-abnormal
 
+ProtectSystem=strict
+RestrictNamespaces=true
+
 [Install]
 WantedBy=graphical.target
