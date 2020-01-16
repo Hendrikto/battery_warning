@@ -48,9 +48,9 @@ void monitoring_loop(
 ) {
 	int capacity;
 	char status[STATUS_MAX];
-	fscanf(status_file, "%s", status);
-	rewind(status_file);
 	for (;;) {
+		fscanf(status_file, "%s", status);
+		rewind(status_file);
 		if (!strcmp(status, "Discharging")) {
 			fscanf(capacity_file, "%d", &capacity);
 			rewind(capacity_file);
@@ -59,8 +59,6 @@ void monitoring_loop(
 			}
 		}
 		sleep(timeout);
-		fscanf(status_file, "%s", status);
-		rewind(status_file);
 	}
 }
 
