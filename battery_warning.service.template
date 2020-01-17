@@ -6,8 +6,31 @@ Environment=DISPLAY={{display}}
 ExecStart={{prefix}}/bin/battery_warning 0 15 300
 Restart=on-abnormal
 
+CapabilityBoundingSet=
+DeviceAllow=/dev/stdin
+DevicePolicy=strict
+IPAddressDeny=any
+LockPersonality=true
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateNetwork=true
+PrivateUsers=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
 ProtectSystem=strict
+RemoveIPC=true
+RestrictAddressFamilies=AF_UNIX
 RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+SystemCallFilter=@basic-io @file-system @io-event @ipc @network-io @process @signal brk fadvise64 getrandom mprotect uname
+UMask=077
 
 [Install]
 WantedBy=graphical.target
