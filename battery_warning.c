@@ -49,9 +49,9 @@ void monitoring_loop(
 	int capacity;
 	char status[STATUS_MAX];
 	for (;;) {
-		fscanf(status_file, "%s", status);
+		fgets(status, STATUS_MAX, status_file);
 		rewind(status_file);
-		if (!strcmp(status, "Discharging")) {
+		if (!strcmp(status, "Discharging\n")) {
 			fscanf(capacity_file, "%d", &capacity);
 			rewind(capacity_file);
 			if (capacity < threshold) {
