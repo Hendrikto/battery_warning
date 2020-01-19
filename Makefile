@@ -5,11 +5,14 @@ prefix = /usr/local
 systemd_prefix = ~/.config
 substitutions = "s/{{display}}/$(DISPLAY)/g\
 	;s\#{{prefix}}\#$(prefix)\#g"
+nagbar_path = /usr/bin/i3-nagbar
+
+DEFINES += -D NAGBAR_PATH=\"$(nagbar_path)\"
 
 all: battery_warning battery_warning.service
 
 %: %.c
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $(DEFINES) $< -o $@
 
 %: %.template
 	sed $(substitutions) $< > $@

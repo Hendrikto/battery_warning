@@ -3,6 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <sys/wait.h>
+
 /**
  * Issue a warning if the battery capacity drops too low.
  *
@@ -11,6 +13,8 @@
 
 #define BATTERY_DIR "/sys/class/power_supply/BAT%d/"
 #define STATUS_MAX 16
+
+static char * const nagbar_argv[] = {NAGBAR_PATH, "-m", "Low battery!", NULL};
 
 void print_usage(char const *const name) {
 	printf(
@@ -55,7 +59,11 @@ void monitoring_loop(
 			fscanf(capacity_file, "%d", &capacity);
 			rewind(capacity_file);
 			if (capacity < threshold) {
-				system("i3-nagbar -m 'Low battery!'");
+				if (!fork()) {
+					execv(nagbar_argv[0], nagbar_argv);
+				} else {
+					wait(NULL);
+				}
 			}
 		}
 		sleep(timeout);
