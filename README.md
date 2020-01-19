@@ -23,3 +23,12 @@ sudo make uninstall
 systemctl start battery_warning.service
 systemctl enable battery_warning.service # optional
 ```
+
+### Security
+
+The included systemd service runs as root by default. You are advised to add a drop-in configuration file inside of `/etc/systemd/system/battery_warning.service.d/` to override this, which should contain something like the following:
+
+```
+[Service]
+User=hendrik
+```
