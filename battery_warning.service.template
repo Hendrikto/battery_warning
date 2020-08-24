@@ -16,6 +16,7 @@ NoNewPrivileges=true
 PrivateDevices=true
 PrivateNetwork=true
 PrivateUsers=true
+ProtectClock=true
 ProtectControlGroups=true
 ProtectHome=true
 ProtectHostname=true
