@@ -10,7 +10,7 @@ nagbar_path = /usr/bin/i3-nagbar
 
 DEFINES += -D NAGBAR_PATH=\"$(nagbar_path)\"
 
-all: battery_warning battery_warning.service
+all: battery_warning battery_warning@.service
 
 %: %.c
 	$(CC) $(CFLAGS) $(DEFINES) $< -o $@
@@ -19,11 +19,11 @@ all: battery_warning battery_warning.service
 	sed $(substitutions) $< > $@
 
 clean:
-	rm -f battery_warning battery_warning.service
+	rm -f battery_warning battery_warning@.service
 
-install: battery_warning battery_warning.service
+install: battery_warning battery_warning@.service
 	install -D -m 755 $< $(DESTDIR)$(prefix)/bin/$<
-	install -D -m 644 $<.service $(DESTDIR)$(systemd_prefix)/systemd/system/$<.service
+	install -D -m 644 $<@.service $(DESTDIR)$(systemd_prefix)/systemd/system/
 
 uninstall:
-	rm -f $(DESTDIR)$(prefix)/bin/battery_warning $(DESTDIR)$(systemd_prefix)/systemd/system/battery_warning.service
+	rm -f $(DESTDIR)$(prefix)/bin/battery_warning $(DESTDIR)$(systemd_prefix)/systemd/system/battery_warning@.service
