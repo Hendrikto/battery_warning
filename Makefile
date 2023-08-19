@@ -22,8 +22,8 @@ clean:
 	rm -f battery_warning battery_warning@.service
 
 install: battery_warning battery_warning@.service
-	install -D -m 755 $< $(DESTDIR)$(prefix)/bin/
-	install -D -m 644 $<@.service $(DESTDIR)$(systemd_prefix)/systemd/system/
+	install -D -m 755 $< $(DESTDIR)$(prefix)/bin/$<
+	install -D -m 644 $(word 2,$^) $(DESTDIR)$(systemd_prefix)/systemd/system/$(word 2,$^)
 
 uninstall:
 	rm -f $(DESTDIR)$(prefix)/bin/battery_warning $(DESTDIR)$(systemd_prefix)/systemd/system/battery_warning@.service
